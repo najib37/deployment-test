@@ -1,3 +1,4 @@
+
 # https://kubernetes.io/docs/concepts/services-networking/service/
 apiVersion: v1
 kind: Service
@@ -16,6 +17,25 @@ spec:
 
 ---
 
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: argocd-server
+  namespace: dev
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: PathPrefix(`/`)
+      priority: 11
+      services:
+        - name: application-service
+          port: 8888
+  tls:
+    certResolver: default
+
+---
 
 # https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
 apiVersion: apps/v1
