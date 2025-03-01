@@ -1,0 +1,16 @@
+# https://kubernetes.io/docs/concepts/services-networking/service/
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: application-service
+  namespace: dev
+spec:
+  selector:
+    app: nginx
+  type: NodePort
+  ports:
+  - protocol: TCP
+    nodePort: 30030
+    port: 8888
+    targetPort: 80
