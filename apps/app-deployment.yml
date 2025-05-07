@@ -18,5 +18,5 @@ spec:
     spec:
       containers:
       - name: will-application
-        image: wil42/playground:v1
+        image: wil42/playground:v2
       restartPolicy: Always
