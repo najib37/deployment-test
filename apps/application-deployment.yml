@@ -4,8 +4,6 @@ kind: Deployment
 metadata:
   name: will-application
   namespace: dev
-  labels:
-    app: nginx
 spec:
   selector:
     matchLabels:
@@ -18,5 +16,22 @@ spec:
     spec:
       containers:
       - name: will-application
-        image: wil42/playground:v2
+        image: wil42/playground:v1
       restartPolicy: Always
+---
+
+# https://kubernetes.io/docs/concepts/services-networking/service/
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: application-service
+  namespace: dev
+spec:
+  selector:
+    app: will-application
+  type: NodePort
+  ports:
+  - protocol: TCP
+    nodePort: 30088
+    port: 8888
